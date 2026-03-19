@@ -45,6 +45,10 @@ export default function Home() {
   const [chartTab, setChartTab] = useState("all");
   const [tableTab, setTableTab] = useState("all");
   const [pubStats, setPubStats] = useState({ total: 0, new_: 0, engaged: 0, proposal: 0, won: 0, lost: 0 });
+  const [editingLead, setEditingLead] = useState(null);
+  const [editName, setEditName] = useState("");
+  const [editEmail, setEditEmail] = useState("");
+  const [editStatus, setEditStatus] = useState("New");
 
   const showToast = useCallback((msg) => {
     setToast(msg);
@@ -133,6 +137,45 @@ export default function Home() {
       fetchLeads(token);
       setTimeout(() => setSuccess(false), 3000);
     } catch { setError("Failed to add lead"); setLoading(false); }
+  };
+
+  const startEdit = (lead) => {
+    setEditingLead(lead._id);
+    setEditName(lead.name);
+    setEditEmail(lead.email);
+    setEditStatus(lead.status);
+  };
+
+  const cancelEdit = () => { setEditingLead(null); };
+
+  const handleEdit = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const res = await fetch(`${API_URL}/leads/${editingLead}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ name: editName, email: editEmail, status: editStatus }),
+      });
+      if (res.status === 401) { doLogout(); return; }
+      const data = await res.json();
+      if (!res.ok) { setError(data.error); return; }
+      setEditingLead(null);
+      showToast("Lead updated successfully!");
+      fetchLeads(token);
+    } catch { setError("Failed to update lead"); }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const res = await fetch(`${API_URL}/leads/${id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (res.status === 401) { doLogout(); return; }
+      showToast("Lead deleted!");
+      fetchLeads(token);
+    } catch { setError("Failed to delete lead"); }
   };
 
   const toastEl = toast ? <div className="toast">{toast}</div> : null;
@@ -372,20 +415,44 @@ export default function Home() {
                 <div className="empty">No leads in this category.</div>
               ) : (
                 <div className="table-wrap">
+                  {error && <div className="err" style={{margin:"0 0 16px"}}>{error}</div>}
                   <table>
                     <thead>
-                      <tr><th></th><th>Name</th><th>Email</th><th>Status</th><th>Type</th><th>Created</th></tr>
+                      <tr><th></th><th>Name</th><th>Email</th><th>Status</th><th>Created</th><th>Actions</th></tr>
                     </thead>
                     <tbody>
                       {filteredLeads.map((lead, i) => (
-                        <tr key={lead._id}>
-                          <td className="td-idx">{i + 1}</td>
-                          <td className="td-name">{lead.name}</td>
-                          <td className="td-email">{lead.email}</td>
-                          <td><span className={`status-pill ${getStatusClass(lead.status)}`}>{lead.status}</span></td>
-                          <td className="td-type">Lead</td>
-                          <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
-                        </tr>
+                        editingLead === lead._id ? (
+                          <tr key={lead._id} className="edit-row">
+                            <td className="td-idx">{i + 1}</td>
+                            <td><input className="edit-input" value={editName} onChange={e => setEditName(e.target.value)} /></td>
+                            <td><input className="edit-input" value={editEmail} onChange={e => setEditEmail(e.target.value)} /></td>
+                            <td>
+                              <select className="edit-select" value={editStatus} onChange={e => setEditStatus(e.target.value)}>
+                                <option value="New">New</option><option value="Engaged">Engaged</option>
+                                <option value="Proposal Sent">Proposal Sent</option><option value="Closed-Won">Closed-Won</option>
+                                <option value="Closed-Lost">Closed-Lost</option>
+                              </select>
+                            </td>
+                            <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
+                            <td className="td-actions">
+                              <button className="act-save" onClick={handleEdit}>Save</button>
+                              <button className="act-cancel" onClick={cancelEdit}>Cancel</button>
+                            </td>
+                          </tr>
+                        ) : (
+                          <tr key={lead._id}>
+                            <td className="td-idx">{i + 1}</td>
+                            <td className="td-name">{lead.name}</td>
+                            <td className="td-email">{lead.email}</td>
+                            <td><span className={`status-pill ${getStatusClass(lead.status)}`}>{lead.status}</span></td>
+                            <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
+                            <td className="td-actions">
+                              <button className="act-edit" onClick={() => startEdit(lead)}>Edit</button>
+                              <button className="act-del" onClick={() => handleDelete(lead._id)}>Delete</button>
+                            </td>
+                          </tr>
+                        )
                       ))}
                     </tbody>
                   </table>

@@ -141,6 +141,18 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8f9fa;c
 .td-type{color:#94a3b8;font-size:13px}
 .card-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
 .sb-divider{height:1px;background:#f1f5f9;margin:8px 0}
+
+/* Edit/Delete actions */
+.td-actions{display:flex;gap:6px;align-items:center}
+.act-edit,.act-save,.act-cancel,.act-del{padding:5px 12px;font-size:12px;font-weight:600;border-radius:6px;cursor:pointer;border:none;transition:.15s}
+.act-edit{color:#3b82f6;background:#eff6ff}.act-edit:hover{background:#3b82f6;color:#fff}
+.act-del{color:#EF4444;background:#fef2f2}.act-del:hover{background:#EF4444;color:#fff}
+.act-save{color:#22c55e;background:#f0fdf4}.act-save:hover{background:#22c55e;color:#fff}
+.act-cancel{color:#64748b;background:#f1f5f9}.act-cancel:hover{background:#94a3b8;color:#fff}
+.edit-row{background:#fafbfc}
+.edit-input{padding:6px 10px;font-size:13px;border:1px solid #e2e8f0;border-radius:6px;outline:none;width:100%;font-family:inherit;transition:.15s}
+.edit-input:focus{border-color:#3b82f6;box-shadow:0 0 0 2px rgba(59,130,246,.1)}
+.edit-select{padding:6px 10px;font-size:13px;border:1px solid #e2e8f0;border-radius:6px;outline:none;font-family:inherit;background:#fff}
 .sb-back{display:flex;align-items:center;justify-content:center;width:36px;height:36px;padding:0;color:#0f172a;background:#f1f5f9;border:none;border-radius:8px;cursor:pointer;transition:.15s;flex-shrink:0}
 .sb-back:hover{color:#EF4444;background:#fef2f2}
 
