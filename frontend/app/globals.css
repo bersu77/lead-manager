@@ -11,7 +11,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8f9fa;c
 .badge{display:inline-block;padding:7px 16px;background:#EF4444;border:none;border-radius:6px;font-size:11px;color:#fff;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:28px}
 .hero-title{line-height:1;margin-bottom:20px}
 .ht-solid{display:block;font-size:clamp(60px,9vw,110px);font-weight:900;color:#0f172a;letter-spacing:-3px;animation:titleIn .8s both}
-.ht-outline{display:block;font-size:clamp(60px,9vw,110px);font-weight:900;-webkit-text-stroke:3px #EF4444;color:transparent;letter-spacing:-3px;animation:titleIn .8s .15s both}
+.ht-outline{display:block;font-size:clamp(60px,9vw,110px);font-weight:900;color:#EF4444;letter-spacing:-3px;animation:titleIn .8s .15s both}
 @keyframes titleIn{from{opacity:0;transform:translateY(30px) skewY(2deg)}to{opacity:1;transform:none}}
 .hero-sub{font-size:clamp(17px,2vw,22px);color:#64748b;line-height:1.5;margin-bottom:36px;animation:fadeIn 1s .4s both}
 .hero-btns{display:flex;gap:14px;animation:fadeIn 1s .6s both}
