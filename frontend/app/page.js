@@ -157,10 +157,10 @@ export default function Home() {
             </div>
           </div>
           <div className="landing-right">
-            <div className="float-card fc1"><span className="fc-dot fc-green"></span>12 New Leads</div>
-            <div className="float-card fc2"><span className="fc-dot fc-orange"></span>5 Engaged</div>
-            <div className="float-card fc3"><span className="fc-dot fc-red"></span>3 Proposals Sent</div>
-            <div className="float-card fc4"><span className="fc-dot fc-green"></span>8 Closed Won</div>
+            <div className="float-card fc1"><span className="fc-dot fc-green"></span>+12 New Leads</div>
+            <div className="float-card fc2"><span className="fc-dot fc-orange"></span>+5 Engaged</div>
+            <div className="float-card fc3"><span className="fc-dot fc-red"></span>+3 Proposals Sent</div>
+            <div className="float-card fc4"><span className="fc-dot fc-green"></span>+8 Closed Won</div>
             <div className="float-num">28</div>
             <div className="float-label">Total Leads</div>
           </div>

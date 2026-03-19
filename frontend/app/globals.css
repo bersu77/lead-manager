@@ -27,7 +27,7 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8f9fa;c
 .fc-dot{width:9px;height:9px;border-radius:50%}.fc-green{background:#22c55e}.fc-orange{background:#f97316}.fc-red{background:#EF4444}
 .fc1{top:20px;left:10%;animation:cfIn .6s .3s both,cfFloat 3s 1s ease-in-out infinite}
 .fc2{top:100px;right:5%;animation:cfIn .6s .5s both,cfFloat 3.5s 1.2s ease-in-out infinite}
-.fc3{bottom:120px;left:5%;animation:cfIn .6s .7s both,cfFloat 2.8s .8s ease-in-out infinite}
+.fc3{bottom:140px;left:0;animation:cfIn .6s .7s both,cfFloat 2.8s .8s ease-in-out infinite}
 .fc4{bottom:40px;right:10%;animation:cfIn .6s .9s both,cfFloat 3.2s 1.5s ease-in-out infinite}
 @keyframes cfIn{from{opacity:0;transform:translateY(24px) scale(.9)}to{opacity:1;transform:none}}
 @keyframes cfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
