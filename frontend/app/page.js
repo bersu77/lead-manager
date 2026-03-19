@@ -44,6 +44,7 @@ export default function Home() {
   const [success, setSuccess] = useState(false);
   const [chartTab, setChartTab] = useState("all");
   const [tableTab, setTableTab] = useState("all");
+  const [pubStats, setPubStats] = useState({ total: 0, new_: 0, engaged: 0, proposal: 0, won: 0, lost: 0 });
 
   const showToast = useCallback((msg) => {
     setToast(msg);
@@ -57,6 +58,7 @@ export default function Home() {
       setToken(saved);
       setUserName(savedName || "");
     }
+    fetch(`${API_URL}/stats`).then(r => r.json()).then(d => setPubStats(d)).catch(() => {});
   }, []);
 
   const doLogout = useCallback(() => {
@@ -157,11 +159,11 @@ export default function Home() {
             </div>
           </div>
           <div className="landing-right">
-            <div className="float-card fc1"><span className="fc-dot fc-green"></span>12+ New Leads</div>
-            <div className="float-card fc2"><span className="fc-dot fc-orange"></span>5+ Engaged</div>
-            <div className="float-card fc3"><span className="fc-dot fc-red"></span>3+ Proposals Sent</div>
-            <div className="float-card fc4"><span className="fc-dot fc-green"></span>8+ Closed Won</div>
-            <div className="float-num">28</div>
+            <div className="float-card fc1"><span className="fc-dot fc-green"></span>{pubStats.new_}+ New Leads</div>
+            <div className="float-card fc2"><span className="fc-dot fc-orange"></span>{pubStats.engaged}+ Engaged</div>
+            <div className="float-card fc3"><span className="fc-dot fc-red"></span>{pubStats.proposal}+ Proposals Sent</div>
+            <div className="float-card fc4"><span className="fc-dot fc-green"></span>{pubStats.won}+ Closed Won</div>
+            <div className="float-num">{pubStats.total}</div>
             <div className="float-label">Total Leads</div>
           </div>
         </div>
