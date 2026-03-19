@@ -1,8 +1,28 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
+function AnimNum({ value, duration = 1200 }) {
+  const [display, setDisplay] = useState(0);
+  const prev = useRef(0);
+  useEffect(() => {
+    const start = prev.current;
+    const end = value;
+    if (start === end) return;
+    const startTime = performance.now();
+    const step = (now) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+      setDisplay(Math.round(start + (end - start) * eased));
+      if (progress < 1) requestAnimationFrame(step);
+      else prev.current = end;
+    };
+    requestAnimationFrame(step);
+  }, [value, duration]);
+  return display;
+}
 
 const MARQUEE_ITEMS = [
   "Track Leads", "Manage Pipeline", "Close Deals", "Grow Revenue",
@@ -202,11 +222,11 @@ export default function Home() {
             </div>
           </div>
           <div className="landing-right">
-            <div className="float-card fc1"><span className="fc-dot fc-green"></span>{pubStats.new_}+ New Leads</div>
-            <div className="float-card fc2"><span className="fc-dot fc-orange"></span>{pubStats.engaged}+ Engaged</div>
-            <div className="float-card fc3"><span className="fc-dot fc-red"></span>{pubStats.proposal}+ Proposals Sent</div>
-            <div className="float-card fc4"><span className="fc-dot fc-green"></span>{pubStats.won}+ Closed Won</div>
-            <div className="float-num">{pubStats.total}</div>
+            <div className="float-card fc1"><span className="fc-dot fc-green"></span><AnimNum value={pubStats.new_} />+ New Leads</div>
+            <div className="float-card fc2"><span className="fc-dot fc-orange"></span><AnimNum value={pubStats.engaged} />+ Engaged</div>
+            <div className="float-card fc3"><span className="fc-dot fc-red"></span><AnimNum value={pubStats.proposal} />+ Proposals Sent</div>
+            <div className="float-card fc4"><span className="fc-dot fc-green"></span><AnimNum value={pubStats.won} />+ Closed Won</div>
+            <div className="float-num"><AnimNum value={pubStats.total} duration={1800} /></div>
             <div className="float-label">Total Leads</div>
           </div>
         </div>
