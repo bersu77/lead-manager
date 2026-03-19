@@ -475,16 +475,39 @@ export default function Home() {
               <div className="table-wrap">
                 <table>
                   <thead>
-                    <tr><th>Name</th><th>Email</th><th>Status</th><th>Created</th></tr>
+                    <tr><th>Name</th><th>Email</th><th>Status</th><th>Created</th><th>Actions</th></tr>
                   </thead>
                   <tbody>
                     {leads.slice(0, 5).map(lead => (
-                      <tr key={lead._id}>
-                        <td className="td-name">{lead.name}</td>
-                        <td className="td-email">{lead.email}</td>
-                        <td><span className={`status-pill ${getStatusClass(lead.status)}`}>{lead.status}</span></td>
-                        <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
-                      </tr>
+                      editingLead === lead._id ? (
+                        <tr key={lead._id} className="edit-row">
+                          <td><input className="edit-input" value={editName} onChange={e => setEditName(e.target.value)} /></td>
+                          <td><input className="edit-input" value={editEmail} onChange={e => setEditEmail(e.target.value)} /></td>
+                          <td>
+                            <select className="edit-select" value={editStatus} onChange={e => setEditStatus(e.target.value)}>
+                              <option value="New">New</option><option value="Engaged">Engaged</option>
+                              <option value="Proposal Sent">Proposal Sent</option><option value="Closed-Won">Closed-Won</option>
+                              <option value="Closed-Lost">Closed-Lost</option>
+                            </select>
+                          </td>
+                          <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
+                          <td className="td-actions">
+                            <button className="act-save" onClick={handleEdit}>Save</button>
+                            <button className="act-cancel" onClick={cancelEdit}>Cancel</button>
+                          </td>
+                        </tr>
+                      ) : (
+                        <tr key={lead._id}>
+                          <td className="td-name">{lead.name}</td>
+                          <td className="td-email">{lead.email}</td>
+                          <td><span className={`status-pill ${getStatusClass(lead.status)}`}>{lead.status}</span></td>
+                          <td className="td-date">{new Date(lead.createdAt).toLocaleDateString()}</td>
+                          <td className="td-actions">
+                            <button className="act-edit" onClick={() => startEdit(lead)}>Edit</button>
+                            <button className="act-del" onClick={() => handleDelete(lead._id)}>Delete</button>
+                          </td>
+                        </tr>
+                      )
                     ))}
                   </tbody>
                 </table>
