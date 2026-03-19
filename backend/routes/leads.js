@@ -55,4 +55,38 @@ router.post("/", async (req, res) => {
   }
 });
 
+// PUT /leads/:id - Update a lead
+router.put("/:id", async (req, res) => {
+  try {
+    const { name, email, status } = req.body;
+    const lead = await Lead.findByIdAndUpdate(
+      req.params.id,
+      { name, email, status },
+      { new: true, runValidators: true }
+    );
+    if (!lead) return res.status(404).json({ error: "Lead not found" });
+    res.json(lead);
+  } catch (err) {
+    if (err.code === 11000) {
+      return res.status(409).json({ error: "A lead with this email already exists" });
+    }
+    if (err.name === "ValidationError") {
+      const messages = Object.values(err.errors).map((e) => e.message);
+      return res.status(400).json({ error: messages.join(", ") });
+    }
+    res.status(500).json({ error: "Failed to update lead" });
+  }
+});
+
+// DELETE /leads/:id - Delete a lead
+router.delete("/:id", async (req, res) => {
+  try {
+    const lead = await Lead.findByIdAndDelete(req.params.id);
+    if (!lead) return res.status(404).json({ error: "Lead not found" });
+    res.json({ message: "Lead deleted" });
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete lead" });
+  }
+});
+
 module.exports = router;
