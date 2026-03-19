@@ -240,6 +240,12 @@ export default function Home() {
           <span className="sb-title">Lead Manager</span>
         </div>
         <nav className="sb-nav">
+          <div className="sb-section">Overview</div>
+          <button className={`sb-item ${page === "dashboard" ? "sb-active" : ""}`} onClick={() => setPage("dashboard")}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            Dashboard
+          </button>
+          <div className="sb-section">Pipeline</div>
           <button className={`sb-item ${page === "form" ? "sb-active" : ""}`} onClick={() => setPage("form")}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 5v14M5 12h14"/></svg>
             Add Lead
@@ -247,11 +253,6 @@ export default function Home() {
           <button className={`sb-item ${page === "list" ? "sb-active" : ""}`} onClick={() => setPage("list")}>
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
             All Leads
-          </button>
-          <div className="sb-section">Overview</div>
-          <button className={`sb-item ${page === "dashboard" ? "sb-active" : ""}`} onClick={() => setPage("dashboard")}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            Dashboard
           </button>
           <div className="sb-item sb-disabled">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
