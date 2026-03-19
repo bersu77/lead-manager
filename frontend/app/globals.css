@@ -22,12 +22,12 @@ body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:#f8f9fa;c
 .btn-ghost{padding:14px 36px;font-size:15px;font-weight:600;color:#0f172a;background:none;border:2px solid #e2e8f0;border-radius:10px;cursor:pointer;transition:.2s}
 .btn-ghost:hover{border-color:#EF4444;color:#EF4444;transform:translateY(-1px)}
 
-.landing-right{flex:1;position:relative;min-height:380px;display:flex;align-items:center;justify-content:center}
+.landing-right{flex:1;position:relative;min-height:380px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding-left:40px}
 .float-card{position:absolute;background:#fff;border:1px solid #f1f5f9;border-radius:12px;padding:12px 22px;font-size:14px;font-weight:600;color:#0f172a;box-shadow:0 4px 20px rgba(0,0,0,.05);display:flex;align-items:center;gap:10px;white-space:nowrap}
 .fc-dot{width:9px;height:9px;border-radius:50%}.fc-green{background:#22c55e}.fc-orange{background:#f97316}.fc-red{background:#EF4444}
 .fc1{top:20px;left:10%;animation:cfIn .6s .3s both,cfFloat 3s 1s ease-in-out infinite}
 .fc2{top:100px;right:5%;animation:cfIn .6s .5s both,cfFloat 3.5s 1.2s ease-in-out infinite}
-.fc3{bottom:140px;left:0;animation:cfIn .6s .7s both,cfFloat 2.8s .8s ease-in-out infinite}
+.fc3{bottom:100px;left:-10px;animation:cfIn .6s .7s both,cfFloat 2.8s .8s ease-in-out infinite}
 .fc4{bottom:40px;right:10%;animation:cfIn .6s .9s both,cfFloat 3.2s 1.5s ease-in-out infinite}
 @keyframes cfIn{from{opacity:0;transform:translateY(24px) scale(.9)}to{opacity:1;transform:none}}
 @keyframes cfFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
