@@ -426,7 +426,7 @@ export default function Home() {
 
         {/* Form */}
         {page === "form" && (
-          <div className="content-card" style={{maxWidth: 580}}>
+          <div className="content-card" style={{maxWidth: 580, margin: "0 auto"}}>
             {success ? (
               <div className="success-box">
                 <div className="success-check">&#10003;</div>
